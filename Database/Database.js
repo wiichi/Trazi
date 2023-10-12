@@ -155,11 +155,12 @@ insertCSVData(){
         })
 
       } else {
+        const [city, state, population] = data;
         db.run(`
           UPDATE ${table} 
           SET city = ?, state = ?, population = ?
           WHERE city = ? AND state = ?
-        `, data, function(error){
+        `, [city, state, population, city ,state], function(error){
           if(error){
             console.log(error.message)
             reject(operations.UPDATE);
