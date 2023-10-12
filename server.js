@@ -1,7 +1,7 @@
 const express = require("express");
 const app     = express();
 
-const Database = require("./Database");
+const Database = require("./Database/Database");
 const table    = "cities"
 const db       = new Database(table);
 
@@ -25,7 +25,7 @@ app.get(`/insertCSV`, (req, res) => {
  */
 app.get(`/api/population/state/:state/city/:city`, (req, res) => {
     const { city, state } = req.params;
-
+    
     db.getRow(city, state)
         .then((result) => {
             let responseMsg, responseStatus;

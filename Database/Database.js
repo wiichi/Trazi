@@ -20,7 +20,7 @@ class Database{
  * @returns this
  */
 connectToDatabase() {
-  const filepath  = `./cities.db`;
+  const filepath  = `./Database/cities.db`;
   
   if (!fs.existsSync(filepath)) {
     fs.appendFile(filepath, "", function(error) {
@@ -79,10 +79,14 @@ getRow(city, state){
      FROM ${this.table} 
      WHERE city = "${city}" AND state = "${state}" 
      ORDER BY state
-   `, [], (err, [{population}]) => {
-     if(err) reject(err);
+   `, [], (err, [row]) => {
+     if(err || row == undefined){
+       reject(err);
+     } else {
+       let {population} = row;
+       resolve(population);
+     }
 
-     resolve(population);
     })
   )}
  
